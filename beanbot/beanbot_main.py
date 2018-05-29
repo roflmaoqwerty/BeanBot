@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import beanbot.db.dbschema as dbschema
 import beanbot.config.bot_config as bot_config
 
 
@@ -11,14 +12,16 @@ def get_prefix(bot, message):
 bot = commands.Bot(command_prefix=get_prefix, description="test bot")
 
 
-extensions = ['modules.admin']
+extensions = ['modules.lfg', 'modules.admin']
 
 if __name__ == '__main__':
+    dbschema.dbinit()
     for extension in extensions:
         try:
             bot.load_extension(extension)
+            print(f'Loaded Extension {extension} successfully.')
         except Exception as e:
-            print(f'Failed to load Extension {extension}.')
+            print(f'Failed to load Extension {extension}. {e}')
 
 
 @bot.event
