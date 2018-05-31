@@ -1,15 +1,10 @@
 import beanbot.db.dbschema as beanscheme
+from datetime import datetime
 from pony.orm import *
 
-@db_session
-def user_exists(userid):
-    user = beanscheme.Users.get(userid=userid)
-    if user is None:
-        return False
-    else:
-        return True
-
 
 @db_session
-def add_user(userid, username):
-    new_user = beanscheme.Users(userid=userid, username=username)
+def add_request(user, duration):
+    requesttime = datetime.utcnow()
+    new_request = beanscheme.Gamerequests(user=user, requesttime=requesttime, requestduration=duration)
+    return new_request
