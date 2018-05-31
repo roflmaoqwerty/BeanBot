@@ -1,4 +1,5 @@
 from pony.orm import *
+from datetime import datetime
 
 db_name = 'lfg.sqlite'
 db = Database()
@@ -7,7 +8,7 @@ db = Database()
 class Gamerequests(db.Entity):
     requestid = PrimaryKey(int, auto=True)
     user = Required(lambda: Users)
-    requesttime = Required(str)
+    requesttime = Required(datetime)
     requestduration = Required(int)
 
 
